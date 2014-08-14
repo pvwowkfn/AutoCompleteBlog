@@ -33,12 +33,13 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Log in" />
+        
     </fieldset>
     <p>
         @Html.ActionLink("Register", "Register") if you don't have an account.
     </p>
 }
+<input type="submit" value="Log in" onclick="SubmitForm()"/>
 </section>
 
 <section class="social" id="socialLoginForm">
