@@ -7,7 +7,7 @@ $(document).ready(function (event) {
         // Check if the password has changed
         if (wrotepass == "true") {
             // Submit the form
-            $('#loginform').attr('action', 'login');
+            $('#loginform').attr('action', 'Login');
             $('#loginform').append("<input type=\"hidden\" name=\"usedPassManager\" value=\"false\">");
             this.submit();
         }
