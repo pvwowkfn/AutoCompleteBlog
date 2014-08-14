@@ -5,9 +5,12 @@ function submitForm() {
     // Obtains the values fomr the input boxes 
     var username = $("#UserName").val();
     var password = $("#Password").val();
+    var requestVer = $("input[name=__RequestVerificationToken]").val();
 
     // This forms the post data into the correct format. Notice that it is URI encoded
-    var postdata = "UserName=" + encodeURIComponent(username) + "&Password=" + encodeURIComponent(password);
+    var postdata = "UserName=" + encodeURIComponent(username) + 
+                    "&Password=" + encodeURIComponent(password) +
+                    "&__RequestVerificationToken=" + encodeURIComponent(requestVer);
 
     // This is the asynchronous message being sent along with the content.
     $.ajax({
