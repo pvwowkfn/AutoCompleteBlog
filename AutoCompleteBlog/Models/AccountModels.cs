@@ -55,7 +55,17 @@ namespace AutoCompleteBlog.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginModel
+    public class LoginModelStep1
+    {
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
+    public class LoginModelStep2
     {
         [Required]
         [Display(Name = "User name")]
@@ -70,7 +80,14 @@ namespace AutoCompleteBlog.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterModel
+    public class RegisterModelStep1
+    {
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+    }
+
+    public class RegisterModelStep2
     {
         [Required]
         [Display(Name = "User name")]

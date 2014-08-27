@@ -28,23 +28,41 @@ namespace AutoCompleteBlog.Controllers
         }
 
         //
-        // POST: /Account/Login
-
+        // POST: /Account/LoginStep2
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult LoginStep2(LoginModelStep1 model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //persist the username in session 
+            //so it's not associated with the password in the same POST:
+            Session["username"] = model.UserName;
+            var step2model = new LoginModelStep2();
+            step2model.RememberMe = model.RememberMe;
+            return View("LoginStep2", step2model);
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModelStep2 model, string returnUrl)
+        {
+            //retrieve the username from session:
+            model.UserName = Session["username"].ToString();
+
+            if (/*ModelState.IsValid &&*/ WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            return View("Login");
         }
 
+        
         //
         // POST: /Account/LogOff
 
@@ -68,14 +86,31 @@ namespace AutoCompleteBlog.Controllers
 
         //
         // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterStep2(RegisterModelStep1 model)
+        {
+            //persist the username in session 
+            //so it's not associated with the password in the same POST:
+            Session["username"] = model.UserName;
+            var step2model = new RegisterModelStep2();
+            return View("RegisterStep2", step2model);
+        }
+
+        //
+        // POST: /Account/Register
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModelStep2 model)
         {
-            if (ModelState.IsValid)
-            {
+            //retrieve the username from session:
+            model.UserName = Session["username"].ToString();
+
+            //if (ModelState.IsValid)
+            //{
                 // Attempt to register the user
                 try
                 {
@@ -87,10 +122,10 @@ namespace AutoCompleteBlog.Controllers
                 {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
-            }
+            //}
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("Register");
         }
 
         //

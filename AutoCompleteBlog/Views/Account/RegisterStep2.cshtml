@@ -1,4 +1,4 @@
-﻿@model AutoCompleteBlog.Models.RegisterModelStep1
+﻿@model AutoCompleteBlog.Models.RegisterModelStep2
 @{
     ViewBag.Title = "Register";
 }
@@ -8,25 +8,25 @@
     <h2>Create a new account.</h2>
 </hgroup>
 
-@using (Html.BeginForm("RegisterStep2", "Account", FormMethod.Post)) {
+@using (Html.BeginForm("Register", "Account", FormMethod.Post)) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
     <fieldset>
         <legend>Registration Form</legend>
         <ol>
-            <li>
+            @*@<li>
                 @Html.LabelFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.UserName)
-            </li>
-            @*@<li>
+            </li>*@
+            <li>
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
             </li>
             <li>
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>*@
+            </li>
         </ol>
         <input type="submit" value="Register" />
     </fieldset>
