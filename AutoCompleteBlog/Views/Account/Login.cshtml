@@ -22,7 +22,8 @@
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </li>
-            <li style="display:none">
+            <li style="position:absolute; top:-50px;">
+            @*<li style="display:none">*@
                 @Html.PasswordFor(m => m.InertPassword)
             </li>
             <li>
